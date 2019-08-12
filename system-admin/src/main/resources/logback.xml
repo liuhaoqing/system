@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="1 seconds" packagingData="true"> 
+
+	<property name="LOG_HOME" value="E:/log" />
+
+	<appender name="Console"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss SSS} [%p][%c][%M][%L]-> %m%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="normal_error_Log"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/framework.normal_error.%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<MaxHistory>30</MaxHistory>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/framework.normal_error.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<maxFileSize>1MB</maxFileSize>
+			<totalSizeCap>20GB</totalSizeCap>
+		</triggeringPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss SSS} [%p][%c][%M][%L]-> %m%n
+			</pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>TRACE</level>
+			<onMatch>DENY</onMatch>
+			<onMismatch>ACCEPT</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="normalLog"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/framework.normal.%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<MaxHistory>30</MaxHistory>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/framework.normal.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<maxFileSize>1MB</maxFileSize>
+			<totalSizeCap>20GB</totalSizeCap>
+		</triggeringPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss SSS} [%p][%c][%M][%L]-> %m%n
+			</pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>TRACE</level>
+			<onMatch>DENY</onMatch>
+			<onMismatch>ACCEPT</onMismatch>
+		</filter>
+	</appender>
+	<appender name="errorLog"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/framework.error.%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<MaxHistory>30</MaxHistory>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>10MB</maxFileSize>
+		</triggeringPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss SSS} [%p][%c][%M][%L]-> %m%n
+			</pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+	
+	<logger name="org.apache.ibatis" level="trace">
+		<appender-ref ref="normal_error_Log"/>
+	</logger>
+	
+	<logger name="javax.sql" level="trace">
+	    <appender-ref ref="normal_error_Log"/>
+	</logger>
+	
+	<logger name="com.liuhq.system.dao.djedbtemplate.sys" level="trace">
+	    <appender-ref ref="normal_error_Log"/>
+	</logger>
+
+	<root level="trace">
+		<appender-ref ref="Console" />
+		<appender-ref ref="normalLog" />
+		<appender-ref ref="errorLog" />
+		<appender-ref ref="normal_error_Log" />
+	</root>
+	
+</configuration>

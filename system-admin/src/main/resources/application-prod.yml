@@ -1,0 +1,45 @@
+spring:
+  datasource:
+    druid:
+      stat-view-servlet:
+        enabled: true
+        loginUsername: admin
+        loginPassword: 123456
+      initial-size: 3
+      max-active: 8
+      min-idle: 2
+      max-wait: -1
+      min-evictable-idle-time-millis: 30000
+      max-evictable-idle-time-millis: 30000
+      time-between-eviction-runs-millis: 0
+      validation-query: select 1
+      validation-query-timeout: -1
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      pool-prepared-statements: true
+      max-open-prepared-statements: 100
+      filters: stat,wall
+      share-prepared-statements: truee
+    dynamic:
+      force-master: false  #遇到事物强制主库，默认值就为true
+      primary: djedbtemplate #设置主库
+      datasource:
+        djedbtemplate:
+          url: jdbc:mysql://10.0.5.50:3306/djedbtemplate?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        hwpoms:
+          url: jdbc:mysql://10.0.8.15:3306/hwpoms?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+          username: root
+          password: liuhq
+          driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  configuration:
+     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+     isTraceEnabled : true
+#logging:
+#  level:
+#     com.liuhq.system.dao : debug

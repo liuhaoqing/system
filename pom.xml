@@ -1,0 +1,209 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.liuhq</groupId>
+	<artifactId>system</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+	<!-- jar包版本管理 -->
+	<properties>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+		<mybatis-plus-boot-starter.version>3.0.7.1</mybatis-plus-boot-starter.version>
+		<dynamic-datasource-spring-boot-starter.version>2.5.6</dynamic-datasource-spring-boot-starter.version>
+		<pagehelper-spring-boot-starter.version>1.2.12</pagehelper-spring-boot-starter.version>
+		<druid-spring-boot-starter.version>1.1.18</druid-spring-boot-starter.version>
+		<springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+		<springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
+		<swagger-bootstrap-ui.version>1.9.5</swagger-bootstrap-ui.version>
+		<swagger-annotations.version>1.5.21</swagger-annotations.version>
+		<swagger-models.version>1.5.21</swagger-models.version>
+		<commons-lang3.version>3.9</commons-lang3.version>
+		<commons-collections4.version>4.4</commons-collections4.version>
+		<fastjson.version>1.2.59</fastjson.version>
+	</properties>
+
+	<!-- 整合springboot -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.6.RELEASE</version>
+	</parent>
+
+	<dependencies>
+		<!-- spring web -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- springboot test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<!-- druid -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+		</dependency>
+		<!-- mybatis-plus -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+		</dependency>
+		<!-- 多源数据库 -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+		</dependency>
+		<!-- MySql驱动 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+		</dependency>
+		<!-- spring整合swagger2 -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>io.swagger</groupId>
+					<artifactId>swagger-models</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>io.swagger</groupId>
+					<artifactId>swagger-annotations</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- 
+			swagger-models和swagger-annotations整合spring默认是1.5.20版本(有bug)，
+			访问swagger-ui.html时会报java.lang.NumberFormatException: For input string: ""
+			解决：将 swagger-models和swagger-annotations替换为1.5.21版本
+		-->
+		<dependency>           
+		    <groupId>io.swagger</groupId>            
+		    <artifactId>swagger-annotations</artifactId>           
+		</dependency>        
+		<dependency>            
+		    <groupId>io.swagger</groupId>            
+		    <artifactId>swagger-models</artifactId>            
+		</dependency>
+		<!-- <dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+		</dependency> -->
+		<dependency>
+		    <groupId>com.github.xiaoymin</groupId>
+		    <artifactId>swagger-bootstrap-ui</artifactId>
+		</dependency>
+	</dependencies>
+
+	<!-- 依赖包版本管理 -->
+	<dependencyManagement>
+		<dependencies>
+			<!-- 整合druid -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid-spring-boot-starter</artifactId>
+				<version>${druid-spring-boot-starter.version}</version>
+			</dependency>
+			<!-- mybatis plus -->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-boot-starter</artifactId>
+				<version>${mybatis-plus-boot-starter.version}</version>
+			</dependency>
+			<!-- 多源数据库 -->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+				<version>${dynamic-datasource-spring-boot-starter.version}</version>
+			</dependency>
+			<!-- mybatis分页 -->
+			<dependency>
+				<groupId>com.github.pagehelper</groupId>
+				<artifactId>pagehelper-spring-boot-starter</artifactId>
+				<version>${pagehelper-spring-boot-starter.version}</version>
+			</dependency>
+			<!-- spring整合swagger2 -->
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>${springfox-swagger2.version}</version>
+			</dependency>
+			<!-- 
+				swagger-models和swagger-annotations整合spring默认是1.5.20版本(有bug)，
+				访问swagger-ui.html时会报java.lang.NumberFormatException: For input string: ""
+				解决：将 swagger-models和swagger-annotations替换为1.5.21版本
+			-->
+			<dependency>           
+			    <groupId>io.swagger</groupId>            
+			    <artifactId>swagger-annotations</artifactId>           
+			    <version>${swagger-annotations.version}</version>       
+			</dependency>        
+			<dependency>            
+			    <groupId>io.swagger</groupId>            
+			    <artifactId>swagger-models</artifactId>            
+			    <version>${swagger-models.version}</version>        
+			</dependency>
+			<!-- 默认swagger-ui.html -->
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger-ui</artifactId>
+				<version>${springfox-swagger-ui.version}</version>
+			</dependency>
+			<!-- 默认doc.html -->
+			<dependency>
+			    <groupId>com.github.xiaoymin</groupId>
+			    <artifactId>swagger-bootstrap-ui</artifactId>
+			    <version>${swagger-bootstrap-ui.version}</version>
+			</dependency>
+			<!-- commons-lang3工具类 -->
+			<dependency>
+			    <groupId>org.apache.commons</groupId>
+			    <artifactId>commons-lang3</artifactId>
+			    <version>${commons-lang3.version}</version>
+			</dependency>
+			<!-- commos-collections -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+			    <artifactId>commons-collections4</artifactId>
+			    <version>${commons-collections4.version}</version>
+			</dependency>
+			<!-- fastjson -->
+			<dependency>
+			    <groupId>com.alibaba</groupId>
+			    <artifactId>fastjson</artifactId>
+			    <version>${fastjson.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<modules>
+		<module>system-admin</module>
+		<module>system-service</module>
+		<module>system-dao</module>
+		<module>system-entity</module>
+		<module>system-common</module>
+	</modules>
+
+</project>
