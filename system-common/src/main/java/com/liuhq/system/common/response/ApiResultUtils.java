@@ -28,8 +28,7 @@ public class ApiResultUtils<T> {
 	}
 
 	public static ApiResult<String> failure(BaseException e) {
-		return ApiResult.<String>builder().code(ApiResultEnum.FAILURE.getCode())
-				.message(ApiResultEnum.FAILURE.getMessage()).build();
+		return ApiResult.<String>builder().code(e.getCode()).message(e.getMessage()).build();
 	}
 
 }

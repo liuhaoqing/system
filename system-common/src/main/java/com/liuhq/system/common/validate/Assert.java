@@ -13,27 +13,24 @@ public class Assert {
 	 * 字符串非空校验
 	 */
 	public static void isBlank(String str, String message) {
-		if (StringUtils.isBlank(str)) {
+		if (StringUtils.isBlank(str))
 			throw new BaseException(message);
-		}
 	}
 
 	/**
 	 * 对象非空校验
 	 */
 	public static void isNull(Object object, String message) {
-		if (object == null) {
+		if (object == null)
 			throw new BaseException(message);
-		}
 	}
 
 	/**
 	 * 布尔校验
 	 */
 	public static void isTrue(boolean result, String message) {
-		if (!result) {
+		if (!result)
 			throw new BaseException(message);
-		}
 	}
 
 }
