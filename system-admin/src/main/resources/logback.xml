@@ -1,107 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration scan="true" scanPeriod="1 seconds" packagingData="true"> 
-
-	<property name="LOG_HOME" value="E:/log" />
-
-	<appender name="Console"
+<configuration scan="true" scanPeriod="1 seconds" packagingData="true">
+	<contextName>system</contextName>
+	<property name="LOG_PATH" value="E:/log" />
+	
+	<!-- 控制台输出 -->
+	<appender name="CONSOLE"
 		class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss SSS} [%p][%c][%M][%L]-> %m%n
-			</pattern>
+			<pattern>%d %-5level %logger{36}[%line] - %msg%n</pattern>
 		</encoder>
 	</appender>
 
-	<appender name="normal_error_Log"
+	<!-- 输出到文件 -->
+	<appender name="DEBUG_FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<file>${LOG_PATH}/debug.log</file>
+		<!-- 设置滚动策略 -->
+		<!-- 按天来回滚，如果需要按小时来回滚，则设置为{yyyy-MM-dd_HH} -->
 		<rollingPolicy
 			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<FileNamePattern>${LOG_HOME}/framework.normal_error.%d{yyyy-MM-dd}.log
-			</FileNamePattern>
-			<MaxHistory>30</MaxHistory>
-		</rollingPolicy>
-		<triggeringPolicy
-			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_HOME}/framework.normal_error.%d{yyyy-MM-dd}.%i.log
+			<!--设置日志命名模式 -->
+			<fileNamePattern>${LOG_PATH}/debug.log.%d{yyyy-MM-dd}.%i.log
 			</fileNamePattern>
-			<maxFileSize>1MB</maxFileSize>
-			<totalSizeCap>20GB</totalSizeCap>
-		</triggeringPolicy>
-		<layout class="ch.qos.logback.classic.PatternLayout">
-			<pattern>%d{yyyy-MM-dd HH:mm:ss SSS} [%p][%c][%M][%L]-> %m%n
-			</pattern>
-		</layout>
-		<filter class="ch.qos.logback.classic.filter.LevelFilter">
-			<level>TRACE</level>
-			<onMatch>DENY</onMatch>
-			<onMismatch>ACCEPT</onMismatch>
-		</filter>
+			<!-- 如果按天来回滚，则最大保存时间为60天，60天之前的都将被清理掉 这里的值与滚动策略模式有关 -->
+			<maxHistory>60</maxHistory>
+			<!-- 按照日期进行归档，并且对日志文件大小进行限制 -->
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- 设置文件大于500KB进行压缩归档 -->
+				<maxFileSize>500KB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder><!-- 格式化输出 -->
+			<pattern>%d %-5level %logger{36}[%line] - %msg%n</pattern>
+		</encoder>
 	</appender>
 
-	<appender name="normalLog"
+	<!-- 输出到文件 -->
+	<appender name="INFO_FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<rollingPolicy
-			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<FileNamePattern>${LOG_HOME}/framework.normal.%d{yyyy-MM-dd}.log
-			</FileNamePattern>
-			<MaxHistory>30</MaxHistory>
-		</rollingPolicy>
-		<triggeringPolicy
-			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_HOME}/framework.normal.%d{yyyy-MM-dd}.%i.log
-			</fileNamePattern>
-			<maxFileSize>1MB</maxFileSize>
-			<totalSizeCap>20GB</totalSizeCap>
-		</triggeringPolicy>
-		<layout class="ch.qos.logback.classic.PatternLayout">
-			<pattern>%d{yyyy-MM-dd HH:mm:ss SSS} [%p][%c][%M][%L]-> %m%n
-			</pattern>
-		</layout>
 		<filter class="ch.qos.logback.classic.filter.LevelFilter">
-			<level>TRACE</level>
-			<onMatch>DENY</onMatch>
-			<onMismatch>ACCEPT</onMismatch>
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
 		</filter>
-	</appender>
-	<appender name="errorLog"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/system.log</file>
 		<rollingPolicy
 			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<FileNamePattern>${LOG_HOME}/framework.error.%d{yyyy-MM-dd}.log
-			</FileNamePattern>
-			<MaxHistory>30</MaxHistory>
+			<fileNamePattern>${LOG_PATH}/system.log.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<maxHistory>60</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>500KB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
-		<triggeringPolicy
-			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-			<maxFileSize>10MB</maxFileSize>
-		</triggeringPolicy>
-		<layout class="ch.qos.logback.classic.PatternLayout">
-			<pattern>%d{yyyy-MM-dd HH:mm:ss SSS} [%p][%c][%M][%L]-> %m%n
-			</pattern>
-		</layout>
+		<encoder>
+			<pattern>%d %-5level %logger{36}[%line] - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="WARN_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<file>${LOG_PATH}/warn.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/warn.log.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<maxHistory>60</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>500KB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d %-5level %logger{36}[%line] - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="ERROR_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<filter class="ch.qos.logback.classic.filter.LevelFilter">
 			<level>ERROR</level>
 			<onMatch>ACCEPT</onMatch>
 			<onMismatch>DENY</onMismatch>
 		</filter>
+		<file>${LOG_PATH}/error.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/error.log.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<maxHistory>60</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>500KB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d %-5level %logger{36}[%line] - %msg%n</pattern>
+		</encoder>
 	</appender>
 	
-	<logger name="org.apache.ibatis" level="trace">
-		<appender-ref ref="normal_error_Log"/>
-	</logger>
-	
-	<logger name="javax.sql" level="trace">
-	    <appender-ref ref="normal_error_Log"/>
-	</logger>
-	
-	<logger name="com.liuhq.system.dao.djedbtemplate.sys" level="trace">
-	    <appender-ref ref="normal_error_Log"/>
-	</logger>
+    
 
-	<root level="trace">
-		<appender-ref ref="Console" />
-		<appender-ref ref="normalLog" />
-		<appender-ref ref="errorLog" />
-		<appender-ref ref="normal_error_Log" />
+	<root level="info">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="INFO_FILE" />
+		<appender-ref ref="WARN_FILE" />
+		<appender-ref ref="ERROR_FILE" />
 	</root>
-	
+
+	<springProfile name="test,dev">
+		<logger name="com.liuhq.system" level="debug"
+			additivity="false">
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="DEBUG_FILE" />
+			<appender-ref ref="INFO_FILE" />
+			<appender-ref ref="WARN_FILE" />
+			<appender-ref ref="ERROR_FILE" />
+		</logger>
+	</springProfile>
+	<springProfile name="prod">
+		<logger name="com.liuhq.system" level="debug"
+			additivity="false">
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="DEBUG_FILE" />
+			<appender-ref ref="INFO_FILE" />
+			<appender-ref ref="WARN_FILE" />
+			<appender-ref ref="ERROR_FILE" />
+		</logger>
+		
+	</springProfile>
+
 </configuration>
