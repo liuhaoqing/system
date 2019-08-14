@@ -2,7 +2,4 @@ server:
   port: 8888
 spring:
   profiles:
-    active: prod
-mybatis:
-   setting:
-      logPrefix: org.apache.ibatis
+    active: dev
