@@ -10,8 +10,8 @@ public class ApiResultUtils<T> {
 	/**
 	 * 返回成功，一般用于更新/删除/插入操作后无需返回结果时使用
 	 */
-	public static <T> ApiResult<T> success() {
-		return success(null);
+	public static ApiResult<String> success() {
+		return success("");
 	}
 
 	/**

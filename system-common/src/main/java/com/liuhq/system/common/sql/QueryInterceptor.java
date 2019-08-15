@@ -1,7 +1,6 @@
 package com.liuhq.system.common.sql;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -29,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 		@Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class,
 				RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class }) })
 @Slf4j
-public class SqlInterceptor implements Interceptor {
+public class QueryInterceptor implements Interceptor {
 
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -43,7 +42,7 @@ public class SqlInterceptor implements Interceptor {
 		CacheKey cacheKey = args.length == 4 ? executor.createCacheKey(ms, parameter, rowBounds, boundSql)
 				: (CacheKey) args[4];
 		log.info(" Preparing: {}", boundSql.getSql().replaceAll("\\s{1,}", " "));
-		printSqlParamter(parameter, boundSql);
+		log.info(SqlUtils.getSqlParamter(parameter, boundSql));
 		List<Object> list = executor.query(ms, parameter, rowBounds, (ResultHandler) args[3], cacheKey, boundSql);
 		log.info("查询到{}条记录", list.size());
 		if (CollectionUtils.isNotEmpty(list)) {
@@ -61,37 +60,6 @@ public class SqlInterceptor implements Interceptor {
 
 	@Override
 	public void setProperties(Properties properties) {
-	}
-
-	@SuppressWarnings("unchecked")
-	private void printSqlParamter(Object parameter, BoundSql boundSql) {
-		StringBuffer paramterInfo = new StringBuffer(" Parameters: ");
-		Map<String, Object> map = JSONObject.parseObject(JSONObject.toJSONString(parameter), Map.class);
-		boundSql.getParameterMappings().forEach(param -> {
-			Map<String, Object> temp = null;
-			// 获取参数名称
-			String property = param.getProperty();
-			String[] keys = property.split("\\.");
-			Object value = null;
-			for (int i = 0; i < keys.length; i++) {
-				String key = keys[i];
-				if (i == keys.length - 1 && i != 0) {
-					value = temp.get(key);
-				} else {
-					if (i == 0) {
-						if (keys.length == 1) {
-							value = map.get(key);
-						} else {
-							temp = JSONObject.parseObject(JSONObject.toJSONString(map.get(key)), Map.class);
-						}
-					} else {
-						temp = JSONObject.parseObject(JSONObject.toJSONString(temp.get(key)), Map.class);
-					}
-				}
-			}
-			paramterInfo.append(value + "(" + param.getJavaType().getSimpleName() + ")" + "\t");
-		});
-		log.info(paramterInfo.toString());
 	}
 
 }
