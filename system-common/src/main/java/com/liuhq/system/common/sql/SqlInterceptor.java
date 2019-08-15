@@ -42,10 +42,10 @@ public class SqlInterceptor implements Interceptor {
 		BoundSql boundSql = args.length == 4 ? ms.getBoundSql(parameter) : (BoundSql) args[5];
 		CacheKey cacheKey = args.length == 4 ? executor.createCacheKey(ms, parameter, rowBounds, boundSql)
 				: (CacheKey) args[4];
+		log.info(" Preparing: {}", boundSql.getSql().replaceAll("\\s{1,}", " "));
 		printSqlParamter(parameter, boundSql);
-		log.info(" Preparing: " + boundSql.getSql());
 		List<Object> list = executor.query(ms, parameter, rowBounds, (ResultHandler) args[3], cacheKey, boundSql);
-		log.info("查询到" + list.size() + "条记录");
+		log.info("查询到{}条记录", list.size());
 		if (CollectionUtils.isNotEmpty(list)) {
 			list.forEach(obj -> {
 				log.info(JSONObject.toJSONString(obj));
