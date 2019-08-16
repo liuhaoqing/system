@@ -15,11 +15,11 @@ public class SqlUtils {
 					paramterInfo
 							.append(JsonUtils.getValueByKey(JSONObject.toJSONString(parameter), param.getProperty()));
 				} catch (Exception e) {
-					paramterInfo.append(parameter);
+					paramterInfo.append(parameter + "\t");
 				}
 			});
 		} catch (Exception e) {
-			paramterInfo.append(parameter);
+			paramterInfo.append(parameter + "\t");
 		}
 		return paramterInfo.toString();
 	}
