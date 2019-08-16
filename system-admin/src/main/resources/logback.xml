@@ -129,7 +129,7 @@
 		</logger>
 	</springProfile>
 	<springProfile name="prod">
-		<logger name="com.liuhq.system" level="debug"
+		<logger name="com.liuhq.system" level="info"
 			additivity="false">
 			<appender-ref ref="CONSOLE" />
 			<appender-ref ref="DEBUG_FILE" />
