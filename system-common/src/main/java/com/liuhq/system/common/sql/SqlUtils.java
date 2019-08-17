@@ -16,7 +16,7 @@ public class SqlUtils {
 			} catch (Exception e) {
 				paramterInfo.append(parameter + "\t");
 			}
-		});
+		}); 
 		return paramterInfo.toString();
 	}
 
