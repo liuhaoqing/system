@@ -9,18 +9,14 @@ public class SqlUtils {
 
 	public static String getSqlParamter(Object parameter, BoundSql boundSql) {
 		StringBuffer paramterInfo = new StringBuffer(" Parameters: ");
-		try {
-			boundSql.getParameterMappings().forEach(param -> {
-				try {
-					paramterInfo
-							.append(JsonUtils.getValueByKey(JSONObject.toJSONString(parameter), param.getProperty()));
-				} catch (Exception e) {
-					paramterInfo.append(parameter + "\t");
-				}
-			});
-		} catch (Exception e) {
-			paramterInfo.append(parameter + "\t");
-		}
+		boundSql.getParameterMappings().forEach(param -> {
+			try {
+				paramterInfo.append(
+						JsonUtils.getValueByKey(JSONObject.toJSONString(parameter), param.getProperty()) + "\t");
+			} catch (Exception e) {
+				paramterInfo.append(parameter + "\t");
+			}
+		});
 		return paramterInfo.toString();
 	}
 
