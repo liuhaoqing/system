@@ -22,6 +22,7 @@ spring:
       filters: stat,wall
       share-prepared-statements: truee
     dynamic:
+      p6spy: true
       force-master: false  #遇到事物强制主库，默认值就为true
       primary: djedbtemplate #设置主库
       datasource:

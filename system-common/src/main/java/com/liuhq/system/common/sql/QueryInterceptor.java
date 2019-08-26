@@ -21,12 +21,12 @@ import com.alibaba.fastjson.JSONObject;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Component
-@Intercepts(value = {
-		@Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class,
-				RowBounds.class, ResultHandler.class }),
-		@Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class,
-				RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class }) })
+//@Component
+//@Intercepts(value = {
+//		@Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class,
+//				RowBounds.class, ResultHandler.class }),
+//		@Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class,
+//				RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class }) })
 @Slf4j
 public class QueryInterceptor implements Interceptor {
 
