@@ -1,5 +1,7 @@
 package com.liuhq.system.service.djedbtemplate.sys;
 
+import java.util.Optional;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,7 @@ import com.liuhq.system.service.BaseService;
 public class SysDictService extends BaseService<SysDict, SysDictMapper> {
 
 	public Page<SysDictVo> pageForCondition(SysDictDto dto) {
-		dto = dto == null ? new SysDictDto() : dto;
+		dto = Optional.<SysDictDto>ofNullable(dto).orElseGet(SysDictDto::new);
 		PageHelper.<SysDict>startPage(dto.getPageNum(), dto.getPageSize());
 		return PageUtils.<SysDictVo, SysDict>page(new PageInfo<SysDict>(
 				baseMapper.selectList(new QueryWrapper<SysDict>().lambda().eq(SysDict::getCode, dto.getCode())
