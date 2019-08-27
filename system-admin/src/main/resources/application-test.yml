@@ -22,6 +22,7 @@ spring:
       filters: stat,wall
       share-prepared-statements: truee
     dynamic:
+      p6spy: true
       force-master: false  #遇到事物强制主库，默认值就为true
       primary: djedbtemplate #设置主库
       datasource:
@@ -37,9 +38,3 @@ spring:
           driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*.xml
-  #configuration:
-     #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-     #isTraceEnabled : true
-#logging:
-#  level:
-#     com.liuhq.system.dao : debug

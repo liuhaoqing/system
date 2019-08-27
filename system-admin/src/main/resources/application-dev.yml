@@ -38,10 +38,3 @@ spring:
           driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*.xml
-  #configuration:
-     #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-     #isTraceEnabled: false
-     #isDebugEnabled: true
-#logging:
-#  level:
-#     com.liuhq.system.dao : debug

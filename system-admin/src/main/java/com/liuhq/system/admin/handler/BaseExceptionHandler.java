@@ -3,6 +3,7 @@ package com.liuhq.system.admin.handler;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.liuhq.system.common.constant.Const;
 import com.liuhq.system.common.exception.BaseException;
 import com.liuhq.system.common.response.ApiResult;
 import com.liuhq.system.common.response.ApiResultUtils;
@@ -21,6 +22,7 @@ public class BaseExceptionHandler {
 	 */
 	@ExceptionHandler(value = { BaseException.class })
 	public ApiResult<String> handleBaseException(BaseException e) {
+		log.info(Const.RESPONSE_INTERNAL_FAILURE_MESSAGE, ":", e);
 		return ApiResultUtils.failure(e);
 	}
 
@@ -29,7 +31,7 @@ public class BaseExceptionHandler {
 	 */
 	@ExceptionHandler(value = { Exception.class })
 	public ApiResult<String> handleBaseException(Exception e) {
-		log.error("未知异常：",e);
+		log.error(Const.RESPONSE_UNKNOWN_FAILURE_MESSAGE, ":", e);
 		return ApiResultUtils.failure();
 	}
 
