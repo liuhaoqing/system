@@ -2,6 +2,9 @@ package com.liuhq.system.common.response;
 
 import com.liuhq.system.common.constant.Const;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 返回结果状态码和信息枚举类
  */
@@ -13,29 +16,17 @@ public enum ApiResultEnum {
 	;
 
 	/** 状态码 **/
+	@Getter
+	@Setter
 	private Integer code;
 
 	/** 返回信息 **/
+	@Getter
+	@Setter
 	private String message;
 
 	private ApiResultEnum(Integer code, String message) {
 		this.code = code;
-		this.message = message;
-	}
-
-	public Integer getCode() {
-		return code;
-	}
-
-	public void setCode(Integer code) {
-		this.code = code;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
 		this.message = message;
 	}
 

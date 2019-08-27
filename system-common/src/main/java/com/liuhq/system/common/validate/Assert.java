@@ -8,6 +8,13 @@ import com.liuhq.system.common.exception.BaseException;
  * 数据校验工具类
  */
 public class Assert {
+	
+	/**
+	 * 抛出异常
+	 */
+	public static void exception(String message) {
+		throw new BaseException(message);
+	}
 
 	/**
 	 * 字符串非空校验

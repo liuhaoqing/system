@@ -3,11 +3,16 @@ package com.liuhq.system.common.exception;
 import com.liuhq.system.common.constant.Const;
 import com.liuhq.system.common.response.ApiResultEnum;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class BaseException extends RuntimeException{
 
 	private static final long serialVersionUID = 3752144405368234956L;
 	
 	/** 状态码 **/
+	@Getter
+	@Setter
 	private Integer code;
 
 	public BaseException() {
@@ -28,12 +33,4 @@ public class BaseException extends RuntimeException{
 		this.code = code;
 	}
 
-	public int getCode() {
-		return code;
-	}
-
-	public void setCode(Integer code) {
-		this.code = code;
-	}
-	
 }
