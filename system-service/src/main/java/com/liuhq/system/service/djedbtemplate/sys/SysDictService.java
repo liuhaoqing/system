@@ -22,9 +22,10 @@ public class SysDictService extends BaseService<SysDict, SysDictMapper> {
 	public Page<SysDictVo> pageForCondition(SysDictDto dto) {
 		dto = Optional.<SysDictDto>ofNullable(dto).orElseGet(SysDictDto::new);
 		PageHelper.<SysDict>startPage(dto.getPageNum(), dto.getPageSize());
-		return PageUtils.<SysDictVo, SysDict>page(new PageInfo<SysDict>(
-				baseMapper.selectList(new QueryWrapper<SysDict>().lambda().eq(SysDict::getCode, dto.getCode())
-						.like(StringUtils.isNotBlank(dto.getType()), SysDict::getType, dto.getType()))));
+		return PageUtils
+				.<SysDictVo, SysDict>page(new PageInfo<SysDict>(baseMapper.selectList(new QueryWrapper<SysDict>()
+						.lambda().like(StringUtils.isNotBlank(dto.getType()), SysDict::getType, dto.getType())
+						.eq(StringUtils.isNotBlank(dto.getCode()), SysDict::getCode, dto.getCode()))));
 	}
 
 }
