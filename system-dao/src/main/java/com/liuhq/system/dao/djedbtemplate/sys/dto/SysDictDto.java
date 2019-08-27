@@ -15,4 +15,7 @@ public class SysDictDto extends PagePojo{
 	@ApiModelProperty(value = "类型")
 	private String type;
 	
+	@ApiModelProperty(value = "code")
+	private String code;
+	
 }
