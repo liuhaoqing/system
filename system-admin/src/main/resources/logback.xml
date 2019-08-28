@@ -108,14 +108,22 @@
 			<pattern>%d %-5level %logger{36}[%line] - %msg%n</pattern>
 		</encoder>
 	</appender>
-	
-    
+	<!-- 将日志写入数据库 -->
+	<appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
+		<connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+			<driverClass>com.mysql.jdbc.Driver</driverClass>
+			<url>jdbc:mysql://10.0.8.15:3306/djsi-log?serverTimezone=UTC&amp;allowMultiQueries=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false</url>
+			<user>root</user>
+			<password>liuhq</password>
+		</connectionSource>
+	</appender>
 
 	<root level="info">
 		<appender-ref ref="CONSOLE" />
 		<appender-ref ref="INFO_FILE" />
 		<appender-ref ref="WARN_FILE" />
 		<appender-ref ref="ERROR_FILE" />
+		<appender-ref ref="DB" />
 	</root>
 
 	<springProfile name="test,dev">
@@ -126,6 +134,7 @@
 			<appender-ref ref="INFO_FILE" />
 			<appender-ref ref="WARN_FILE" />
 			<appender-ref ref="ERROR_FILE" />
+			<appender-ref ref="DB" />
 		</logger>
 	</springProfile>
 	<springProfile name="prod">
@@ -136,6 +145,7 @@
 			<appender-ref ref="INFO_FILE" />
 			<appender-ref ref="WARN_FILE" />
 			<appender-ref ref="ERROR_FILE" />
+			<appender-ref ref="DB" />
 		</logger>
 		
 	</springProfile>
