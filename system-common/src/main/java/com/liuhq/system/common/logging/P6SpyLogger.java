@@ -1,9 +1,8 @@
 package com.liuhq.system.common.logging;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.baomidou.mybatisplus.core.toolkit.sql.SqlUtils;
+import com.alibaba.druid.sql.SQLUtils;
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
+import org.apache.commons.lang3.StringUtils;
 
 public class P6SpyLogger implements MessageFormattingStrategy {
 
@@ -13,7 +12,7 @@ public class P6SpyLogger implements MessageFormattingStrategy {
 		return "resultset".equals(category) ? sql
 				: StringUtils.isNotBlank(sql)
 						? "[ " + now + " ] --- | took " + elapsed + "ms | " + category + " | connection " + connectionId
-								+ "\n " + SqlUtils.sqlFormat(sql, true) + ";"
+								+ "\n " + SQLUtils.formatMySql(sql) + ";"
 						: StringUtils.EMPTY;
 	}
 

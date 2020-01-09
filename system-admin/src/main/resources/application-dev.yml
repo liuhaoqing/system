@@ -20,7 +20,7 @@ spring:
       pool-prepared-statements: true
       max-open-prepared-statements: 100
       filters: stat,wall
-      share-prepared-statements: truee
+      share-prepared-statements: true
     dynamic:
       p6spy: true
       force-master: false  #遇到事物强制主库，默认值就为true
@@ -32,9 +32,9 @@ spring:
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
         hwpoms:
-          url: jdbc:mysql://10.0.8.15:3306/hwpoms?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+          url: jdbc:mysql://10.0.8.17:3306/hwpoms?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
           username: root
-          password: liuhq
+          password: liuhq1995
           driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*.xml
